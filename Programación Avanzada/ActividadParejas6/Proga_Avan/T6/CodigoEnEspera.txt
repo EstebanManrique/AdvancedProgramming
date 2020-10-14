@@ -1,0 +1,55 @@
+//CENTRAL
+
+int test=0;
+
+void manejador(int sigid){
+
+    if(sigid==2)
+    {
+        printf("Estoy ignorando el ctrl+c y voy a enviar a traves del socket una señal");
+    }
+    else
+    {
+        printf("Estoy ignorando el ctrl+z y voy a enviar a traves del socket una señal");
+    }
+    test=1;
+}
+
+ /*FILE* file;
+        file = fopen("SigSemaforo.txt", "r+");
+        leidos = read(file, &buffer, sizeof(buffer));
+        write(fileno(stdout), &buffer, leidos);
+        fclose(file);*/
+
+/*if (cliente[c] >= 0) 
+    {    
+        // Leer datos del socket
+        while (leidos = read(cliente[c], &buffer, sizeof(buffer))) 
+        {
+            write(fileno(stdout), &buffer, leidos);
+            
+            /* Leer de teclado y escribir en el socket 
+            leidos = read(fileno(stdin), &buffer, sizeof(buffer));
+            write(cliente[c], &buffer, leidos);
+            if(c<3) c++;
+            else c=0;
+        }
+    }*/
+
+/SEMAFORO
+
+/**FILE* file;
+        file = fopen("SigSemaforo.txt", "w+");
+        fprintf(file, "%d", getpid());
+        leidos = read(file, &buffer, sizeof(buffer));
+        write(fileno(stdout), &buffer, leidos);
+        fclose(file);*/
+
+ while ((leidos = read(fileno(stdin), &buffer, sizeof(buffer)))) 
+        {
+            write(cliente, &buffer, leidos);
+            
+            /* Lee del buffer y escribe en pantalla */
+            leidos = read(cliente, &buffer, sizeof(buffer));
+            write(fileno(stdout), &buffer, leidos);
+        }
